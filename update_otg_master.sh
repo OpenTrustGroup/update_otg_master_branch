@@ -1,5 +1,15 @@
 #!/bin/bash
 
+set -e; [[ "${TRACE}" ]] && set -x
+
+function sync_upstream_branch {
+  if [[ -z "$(git remote |grep otg)" ]]; then
+    git remote add otg ssh://review.gerrithub.io:29418/OpenTrustGroup/$1
+  fi
+  git fetch otg
+  git push otg HEAD:master
+}
+
 # fetch newest upstream source code
 ./jiri update
 
@@ -10,13 +20,9 @@ DIR_ARRAY=(${DIR_LIST//\//})    # remove slash char.
 cd repos
 
 for dir in "${DIR_ARRAY[@]}"; do
+  pushd ${dir} > /dev/null
   echo "syncing project [${dir}]..."
-  cd ${dir}
-  if [[ -z "$(git remote |grep otg)" ]]; then
-    git remote add otg ssh://review.gerrithub.io:29418/OpenTrustGroup/${dir} || exit 1
-  fi
-  git fetch otg || exit 1
-  git push otg HEAD:master || exit 1
-  cd ..
+  sync_upstream_branch ${dir}
   echo "done"
+  popd > /dev/null
 done
