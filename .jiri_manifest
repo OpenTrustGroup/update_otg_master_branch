@@ -29,6 +29,10 @@
              path="repos/garnet"
              remote="https://fuchsia.googlesource.com/garnet"
              remotebranch="master"/>
+    <project name="build"
+             path="repos/build"
+             remote="https://fuchsia.googlesource.com/build"
+             remotebranch="master"/>
     <project name="third_party-qemu"
              path="repos/third_party-qemu"
              remote="https://fuchsia.googlesource.com/third_party/qemu"
