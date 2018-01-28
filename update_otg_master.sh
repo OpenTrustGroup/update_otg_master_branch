@@ -12,6 +12,7 @@ function sync_upstream_branch {
 
 # fetch newest upstream source code
 ./jiri update
+./jiri runp git checkout --detach JIRI_HEAD
 
 DIR_LIST="$(find repos -maxdepth 1 -type d)"
 DIR_LIST="${DIR_LIST//repos/}"  # remove 'repos' string
