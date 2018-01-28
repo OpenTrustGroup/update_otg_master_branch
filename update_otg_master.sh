@@ -7,6 +7,7 @@ function sync_upstream_branch {
     git remote add otg ssh://review.gerrithub.io:29418/OpenTrustGroup/$1
   fi
   git fetch otg
+  git checkout --detach origin/master
   git push otg HEAD:master
 }
 
