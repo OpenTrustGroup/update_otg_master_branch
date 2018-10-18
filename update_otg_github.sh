@@ -2,7 +2,7 @@
 
 set -e; [[ "${TRACE}" ]] && set -x
 
-branch_sync_list="gzos master"
+branch_sync_list="gzos gzos_dev master"
 
 function update_github_project {
   if [[ -z "$(git remote |grep otg)" ]]; then
@@ -17,6 +17,12 @@ function update_github_project {
   git fetch github
 
   for b in ${branch_sync_list}; do
+    # ignored if branch does not exist
+    branch_hash="$(git rev-parse --verify --quiet ${b} || return 0)"
+    if [[ "${branch_hash}" == "" ]]; then
+      continue
+    fi
+
     branch_diff=`git diff --name-status github/${b} otg/${b}`
     if [[ ! -z "${branch_diff}" ]]; then
       echo "update branch: ${b}"

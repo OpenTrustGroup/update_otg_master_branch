@@ -3,6 +3,10 @@
 set -e; [[ "${TRACE}" ]] && set -x
 
 function sync_upstream_branch {
+  if [[ "$1" == "linux" ]]; then
+    return;
+  fi
+
   if [[ -z "$(git remote |grep otg)" ]]; then
     git remote add otg ssh://review.gerrithub.io:29418/OpenTrustGroup/$1
   fi

@@ -5,6 +5,10 @@
              path="repos/linux"
              remote="https://github.com/linaro-swg/linux"
              remotebranch="optee"/>
+    <project name="docs"
+             path="repos/docs"
+             remote="https://github.com/OpenTrustGroup/docs.git"
+             remotebranch="master"/>
     <project name="arm-trusted-firmware"
              path="repos/arm-trusted-firmware"
              remote="https://github.com/ARM-software/arm-trusted-firmware"
